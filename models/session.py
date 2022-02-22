@@ -10,3 +10,4 @@ class Course(models.Model):
     date = fields.Date(date='Date')
     duration = fields.Float(float='Duration')
     seats = fields.Integer(int='Seats')
+    active = fields.Boolean(default= True)
