@@ -9,4 +9,3 @@ class Course(models.Model):
     name = fields.Char(string='Course')
     title = fields.Char(string='Title')
     description = fields.Text(string='Description')
-
