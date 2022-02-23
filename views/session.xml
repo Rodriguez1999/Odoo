@@ -11,6 +11,7 @@
                             <field name="date" />
                             <field name="duration"/>
                             <field name="seats" />
+                            <field name="amount_seats" widget="progressbar"/>
                             <field name="instructor_id"/>
                             <field name="course_id" />
                         </group>
@@ -34,7 +35,7 @@
         </record>
 
         <menuitem id="menu_open_academy" name="OpenAcademy" sequence="10"/>
-        <menuitem id="menu_session" parent="menu_open_academy" name="session" sequence="30"
+        <menuitem id="menu_session" parent="menu_open_academy" name="Session" sequence="30"
                 action="action_list_session"/>
     </data>
 </odoo>

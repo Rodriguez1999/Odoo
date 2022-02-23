@@ -13,3 +13,12 @@ class Course(models.Model):
     instructor_id = fields.Many2one('res.partner', string="Instructor", domain=['|', ('instructor', '=', True),('category_id.name', 'ilike', "Teacher")])
     course_id = fields.Many2one('open_academy.course',ondelete='cascade', string="Course", required=True)
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
+    amount_seats = fields.Float(string="Taken seats", compute='_amount_seats')
+
+    @api.depends('seats', 'attendee_ids')
+    def _amount_seats(self):
+        for record in self:
+            if not record.seats:
+                record.amount_seats = 0.0
+            else:
+                record.amount_seats = 100.0 * len(record.attendee_ids) / record.seats
