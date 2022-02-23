@@ -10,4 +10,5 @@ class Course(models.Model):
     date = fields.Date(date='Date')
     duration = fields.Float(float='Duration')
     seats = fields.Integer(int='Seats')
-    active = fields.Boolean(default= True)
+    instructor_id = fields.Many2one('res.partner', string="Instructor")
+    course_id = fields.Many2one('open_academy.course',ondelete='cascade', string="Course", required=True)
