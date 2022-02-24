@@ -17,3 +17,11 @@ class Course(models.Model):
         ('name_and_description_check', 'CHECK(name != description)', "El nombre del curso debe ser diferente a su descripcion."),
         ('name_unique', 'UNIQUE(name)', "El nombre del curso debe ser unico dentro de la lista existente."),
     ]
+
+    # duplicar curso
+    def copy(self, default=None):
+        if default is None:
+            default={}
+        if not default.get('name'):
+            default['name'] = "Copy of ["+self.name+"]"
+        return super(Course, self).copy(default)

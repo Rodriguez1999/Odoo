@@ -42,7 +42,15 @@
             </field>
         </record>
 
-
+        <record model="ir.ui.view" id="session_calendar_view">
+            <field name="name">session.calendar</field>
+            <field name="model">open_academy.session</field>
+            <field name="arch" type="xml">
+                <calendar string="Session Calendar" date_start="date" color="instructor_id">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
 
         <record model="ir.actions.act_window" id="action_list_session">
             <field name="name">Session</field>

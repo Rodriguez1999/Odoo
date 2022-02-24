@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
-class Course(models.Model):
+class Session(models.Model):
     _name = 'open_academy.session'
     _description = 'Session'
 
