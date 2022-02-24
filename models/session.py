@@ -16,6 +16,7 @@ class Session(models.Model):
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
     amount_seats = fields.Float(string="Taken seats", compute='_amount_seats')
     active = fields.Boolean(string='Active', default=True)
+    attendees_count = fields.Integer(string="Attendees count", compute='_get_attendees_count', store=True)
     
     # porsentaje de asientos ocupados
     @api.depends('seats', 'attendee_ids')
@@ -50,3 +51,8 @@ class Session(models.Model):
             if record == self.instructor_id:
                 raise ValidationError("The instructor not is a attendee")
 
+    # contar participantes del curso
+    @api.depends('attendee_ids')
+    def _get_attendees_count(self):
+        for r in self:
+            r.attendees_count = len(r.attendee_ids)

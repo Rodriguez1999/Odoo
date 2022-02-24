@@ -53,10 +53,22 @@
         </field>
         </record>
 
+        <!-- vista de grafico -->
+        <record model="ir.ui.view" id="open_academy_session_graph_view">
+            <field name="name">open_academy.session.graph</field>
+            <field name="model">open_academy.session</field>
+            <field name="arch" type="xml">
+                <graph string="Participations by Courses">
+                    <field name="course_id"/>
+                    <field name="attendees_count" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="action_list_session">
             <field name="name">Session</field>
             <field name="res_model">open_academy.session</field>
-            <field name="view_mode">tree,form,calendar</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
         </record>
 
         <menuitem id="menu_open_academy" name="OpenAcademy" sequence="10"/>
