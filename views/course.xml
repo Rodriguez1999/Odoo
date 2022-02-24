@@ -19,9 +19,14 @@
                 <search string="Busqueda">
                     <field name="title"/>
                     <field name="description"/>
+                    <filter name="mis_cursos" string="Mis Cursos" domain="[('responsible_id', '=', uid)]"/>
+                    <group string="Agrupar por">
+                        <filter name="por Encargado" string="Encargado" context="{'group_by': 'responsible_id'}"/>
+                    </group>
                 </search>
             </field>
         </record>
+
 
 
         <!-- open_academy.course form view -->
