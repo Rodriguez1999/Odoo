@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class Course(models.Model):
     _name = 'open_academy.session'
@@ -24,3 +25,26 @@ class Course(models.Model):
                 record.amount_seats = 0.0
             else:
                 record.amount_seats = 100.0 * len(record.attendee_ids) / record.seats
+
+    @api.onchange('seats', 'attendee_ids')
+    def _onchange_seats(self):
+        if self.seats < 0: 
+            return {
+                'warning': {
+                    'title': "Alert warning",
+                    'message': "Value invalid, number negative",
+                }
+            }
+        if self.seats < len(self.attendee_ids): 
+            return {
+                'warning': {
+                    'title': "Alert warning",
+                    'message': "There cannot be more members than chairs",
+                }
+            }
+
+    @api.constrains('attendee_ids')
+    def _check_instructor(self):
+        for record in self.attendee_ids:
+            if record == self.instructor_id:
+                raise ValidationError("The instructor not is a attendee")
