@@ -12,7 +12,8 @@ class Course(models.Model):
     responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True)
     session_ids = fields.One2many('open_academy.session', 'course_id', string="Sessions")
 
+    # Restricciones desde el sql de postgress
     _sql_constraints = [
-        ('name_description_check', 'CHECK(name != description)', "El nombre del curso debe ser diferente a su descripcion."),
+        ('name_and_description_check', 'CHECK(name != description)', "El nombre del curso debe ser diferente a su descripcion."),
         ('name_unique', 'UNIQUE(name)', "El nombre del curso debe ser unico dentro de la lista existente."),
     ]

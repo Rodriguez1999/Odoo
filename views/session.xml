@@ -1,11 +1,12 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="open_academy.sessiontree">
+        <record model="ir.ui.view" id="open_academy.session_tree">
             <field name="name">Session list</field>
             <field name="model">open_academy.session</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree string='Session' decoration-info="duration&lt;5" decoration-danger="duration&gt;15">
                     <field name="name"/>
+                    <field name="duration"/>
                     <field name="instructor_id"/>
                     <field name="course_id" />
                     <field name="active" />  

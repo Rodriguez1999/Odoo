@@ -7,7 +7,7 @@ class Course(models.Model):
     _name = 'open_academy.session'
     _description = 'Session'
 
-    name = fields.Char(string='Session')
+    name = fields.Char(string='Session' )
     date = fields.Date(date='Date', default=fields.Date.today)
     duration = fields.Float(float='Duration')
     seats = fields.Integer(int='Seats')
@@ -17,7 +17,7 @@ class Course(models.Model):
     amount_seats = fields.Float(string="Taken seats", compute='_amount_seats')
     active = fields.Boolean(string='Active', default=True)
     
-
+    # porsentaje de asientos ocupados
     @api.depends('seats', 'attendee_ids')
     def _amount_seats(self):
         for record in self:
@@ -26,6 +26,7 @@ class Course(models.Model):
             else:
                 record.amount_seats = 100.0 * len(record.attendee_ids) / record.seats
 
+    # Advertencias de limite de asistentes y cantidad de asientos validos
     @api.onchange('seats', 'attendee_ids')
     def _onchange_seats(self):
         if self.seats < 0: 
@@ -42,9 +43,10 @@ class Course(models.Model):
                     'message': "There cannot be more members than chairs",
                 }
             }
-
+    # Restriccion de instructor como integrante de una sesion  
     @api.constrains('attendee_ids')
     def _check_instructor(self):
         for record in self.attendee_ids:
             if record == self.instructor_id:
                 raise ValidationError("The instructor not is a attendee")
+
